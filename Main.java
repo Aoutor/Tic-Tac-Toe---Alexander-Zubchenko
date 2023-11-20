@@ -8,12 +8,29 @@ public class Main {
         String[][] arr = new String[3][3];
         int round = 1;
         String ans = "";
+        String replay = "";
         while (!win) {
-            ans = a.nextLine();
-            display(round, arr, ans);
-            round++;
-            if (win(arr)) System.out.println("WON");
 
+            //CHECKS FOR WINNER
+            if (win(arr)){
+                System.out.println("GAME WON, Y/N to replay?");
+                replay = a.nextLine();
+                if (replay.equals("N")){
+                    System.out.println("Game over");
+                    win = true;
+                } else if (replay.equals("Y")){
+                    round = 1;
+                    System.out.println("REPLAYING...");
+                }
+            }
+            //
+            if (!win) {
+                if (round==1)
+                    System.out.println("WELCOME TO TIC, TAC, TOE, Enter row, column, to make a move!");
+                ans = a.nextLine();
+                display(round, arr, ans);
+                round++;
+            }
         }
     }
 
@@ -42,12 +59,23 @@ public class Main {
             }
             System.out.println();
         }
-
-        System.out.println("Make a move (row, column)");
     }
 
     public static boolean win (String[][] arr){
-        if (arr[0].equals(arr[1]) && arr[1].equals(arr[2])) return true;
+        String vert = "";
+        String hori = "";
+        for (int i = 0; i < 3; i++) {
+            vert = "";
+            hori = "";
+            for (int j = 0; j < 3; j++){
+                vert+= arr[i][j];
+                hori+= arr[j][i];
+                if (hori.equals("XXX") || vert.equals("XXX")) return true;
+                if (hori.equals("000") || vert.equals("000")) return true;
+            }
+            if ((arr[0][0]+arr[1][1]+arr[2][2]).equals("XXX") || (arr[0][0]+arr[1][1]+arr[2][2]).equals("000")) return true;
+            if ((arr[2][0]+arr[1][1]+arr[0][2]).equals("XXX") || (arr[2][0]+arr[1][1]+arr[0][2]).equals("000")) return true;
+        }
         return false;
     }
 

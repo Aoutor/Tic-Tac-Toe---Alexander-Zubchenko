@@ -49,7 +49,9 @@ public class Main {
                     arr[i][j] = " ";
                 }
                 if (column<=3 && row<=3 && ans.length()==4){
-                    arr[row-1][column-1] = check;
+                    if (arr[row-1][column-1].equals(" ")){
+                        arr[row-1][column-1] = check;
+                    }
                     System.out.print("[" + arr[i][j] + "]");
                 } else {
                     if (j==arr[0].length-1 && i==arr.length-1)
